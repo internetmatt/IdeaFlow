@@ -33,6 +33,7 @@ jobs:
             - run: pnpm test:graph-skills
             - run: pnpm lint
             - run: pnpm --filter @openideas/diagram test
+            - run: pnpm --filter flowise-ui exec jest --runInBand src/views/diagram/initialization.test.js
             - run: pnpm build
               env:
                   NODE_OPTIONS: '--max_old_space_size=4096'
