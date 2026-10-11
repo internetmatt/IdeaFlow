@@ -1,5 +1,7 @@
 /**
- * Color intention that you want to used in your theme
+ * Color intention that you want to used in your theme.
+ * Primary, status, text, and background read @internetmatt/design-tokens
+ * (packages/ui/src/themes/internetmatt-tokens.css). MUI stays.
  * @param {JsonObject} theme Theme customization object
  */
 
@@ -12,23 +14,23 @@ export default function themePalette(theme) {
             dark: theme.colors?.darkPrimaryMain
         },
         primary: {
-            light: theme.customization.isDarkMode ? theme.colors?.darkPrimaryLight : theme.colors?.primaryLight,
-            main: theme.colors?.primaryMain,
-            dark: theme.customization.isDarkMode ? theme.colors?.darkPrimaryDark : theme.colors?.primaryDark,
+            light: 'var(--colors-info-light)',
+            main: 'var(--theme-colors-primary)',
+            dark: 'var(--colors-primary-active)',
             200: theme.customization.isDarkMode ? theme.colors?.darkPrimary200 : theme.colors?.primary200,
             800: theme.customization.isDarkMode ? theme.colors?.darkPrimary800 : theme.colors?.primary800
         },
         secondary: {
             light: theme.customization.isDarkMode ? theme.colors?.darkSecondaryLight : theme.colors?.secondaryLight,
-            main: theme.customization.isDarkMode ? theme.colors?.darkSecondaryMain : theme.colors?.secondaryMain,
+            main: 'var(--theme-colors-secondary)',
             dark: theme.customization.isDarkMode ? theme.colors?.darkSecondaryDark : theme.colors?.secondaryDark,
             200: theme.colors?.secondary200,
             800: theme.colors?.secondary800
         },
         error: {
-            light: theme.colors?.errorLight,
-            main: theme.colors?.errorMain,
-            dark: theme.colors?.errorDark
+            light: 'var(--colors-danger-background)',
+            main: 'var(--colors-danger-default)',
+            dark: 'var(--colors-danger-dark)'
         },
         orange: {
             light: theme.colors?.orangeLight,
@@ -41,15 +43,15 @@ export default function themePalette(theme) {
             dark: theme.colors?.tealDark
         },
         warning: {
-            light: theme.colors?.warningLight,
-            main: theme.colors?.warningMain,
-            dark: theme.colors?.warningDark
+            light: 'var(--colors-warning-background)',
+            main: 'var(--colors-warning-default)',
+            dark: 'var(--colors-warning-dark)'
         },
         success: {
-            light: theme.colors?.successLight,
-            200: theme.colors?.success200,
-            main: theme.colors?.successMain,
-            dark: theme.colors?.successDark
+            light: 'var(--colors-success-light)',
+            200: 'var(--colors-success-light)',
+            main: 'var(--colors-success-default)',
+            dark: 'var(--colors-success-dark)'
         },
         grey: {
             50: theme.colors?.grey50,
@@ -69,14 +71,15 @@ export default function themePalette(theme) {
             900: theme.colors?.darkPaper
         },
         text: {
-            primary: theme.darkTextPrimary,
-            secondary: theme.darkTextSecondary,
-            dark: theme.textDark,
-            hint: theme.colors?.grey100
+            primary: 'var(--theme-colors-text)',
+            secondary: 'var(--theme-colors-text-secondary)',
+            dark: 'var(--theme-colors-text)',
+            hint: 'var(--theme-colors-text-disabled)'
         },
+        divider: 'var(--theme-colors-border)',
         background: {
-            paper: theme.paper,
-            default: theme.backgroundDefault
+            paper: 'var(--theme-colors-background)',
+            default: 'var(--theme-colors-background-secondary)'
         },
         textBackground: {
             main: theme.customization.isDarkMode ? theme.colors?.darkPrimary800 : theme.colors?.grey50,
