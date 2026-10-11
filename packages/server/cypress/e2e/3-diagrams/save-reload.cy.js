@@ -39,7 +39,8 @@ describe('diagram live save/reload', () => {
             .then((path) => {
                 id = path.split('/').pop()
             })
-        cy.get('[aria-label="Diagram name"]').clear().type(name).blur()
+        cy.get('[aria-label="Diagram name"]').should('be.enabled').and('have.value', 'Untitled diagram').clear()
+        cy.get('[aria-label="Diagram name"]').should('have.value', '').type(name).should('have.value', name).blur()
         cy.contains('label', 'DSL').find('textarea').clear().type(dsl, { parseSpecialCharSequences: false })
         cy.get('.react-flow__node').should('have.length', 2)
         cy.contains('button', /^Save$/).click()
@@ -96,7 +97,8 @@ describe('diagram live save/reload', () => {
             .then((path) => {
                 id = path.split('/').pop()
             })
-        cy.get('[aria-label="Agent name"]').clear().type(name).blur()
+        cy.get('[aria-label="Agent name"]').should('be.enabled').and('have.value', 'Untitled agent').clear()
+        cy.get('[aria-label="Agent name"]').should('have.value', '').type(name).should('have.value', name).blur()
         cy.contains('button', /^Save$/).click()
         cy.get('.ideaflow-note').should('contain', 'Saved')
         cy.then(() => cy.request({ url: `${origin}/api/v1/chatflows/${id}`, headers: { 'x-request-from': 'internal' } }))

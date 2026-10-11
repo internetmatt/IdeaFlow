@@ -61,6 +61,8 @@ const DiagramAgentView = () => {
     const [status, setStatus] = useState('')
     const [error, setError] = useState('')
     const [flowData, setFlowData] = useState('')
+    const [loadedId, setLoadedId] = useState(null)
+    const isLoaded = Boolean(id && loadedId === id)
 
     useEffect(() => {
         nameRef.current = name
@@ -100,12 +102,15 @@ const DiagramAgentView = () => {
                 flowRef.current = asAgentBlob(chatflow.flowData)
                 setName(nameRef.current)
                 setFlowData(flowRef.current)
+                setLoadedId(id)
             } catch (loadError) {
                 if (!cancelled) setError(loadError?.response?.data?.message || loadError.message || 'Could not open agent diagram')
             }
         }
         setError('')
+        setStatus('')
         setFlowData('')
+        setLoadedId(null)
         run()
         return () => {
             cancelled = true
@@ -114,7 +119,7 @@ const DiagramAgentView = () => {
 
     useEffect(() => {
         const element = hostRef.current
-        if (!id || !flowData || !element) return undefined
+        if (!isLoaded || !flowData || !element) return undefined
         let cancelled = false
         let handle = null
         const save = async (nextFlowData) => {
@@ -149,10 +154,10 @@ const DiagramAgentView = () => {
             handle?.unmount()
             window.OpenIdeasDiagram?.unmount(element)
         }
-    }, [id, flowData])
+    }, [id, flowData, isLoaded])
 
     const rename = async () => {
-        if (!id) return
+        if (!isLoaded) return
         try {
             await chatflowsApi.updateChatflow(id, {
                 name,
@@ -169,7 +174,13 @@ const DiagramAgentView = () => {
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '8px 12px', borderBottom: '1px solid #d5ddd6' }}>
                 <Link to='/agentflows'>Agents</Link>
-                <input value={name} onChange={(event) => setName(event.target.value)} onBlur={rename} aria-label='Agent name' />
+                <input
+                    value={name}
+                    disabled={!isLoaded}
+                    onChange={(event) => setName(event.target.value)}
+                    onBlur={rename}
+                    aria-label='Agent name'
+                />
                 {status ? <span>{status}</span> : null}
                 {error ? <span style={{ color: '#8d2a2a' }}>{error}</span> : null}
             </div>
