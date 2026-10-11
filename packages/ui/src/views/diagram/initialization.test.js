@@ -1,4 +1,4 @@
-/** @jest-environment jsdom */
+/** @jest-environment <rootDir>/../agentflow/src/__test_utils__/jest-environment-jsdom.js */
 import '@testing-library/jest-dom'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Link, MemoryRouter, Route, Routes } from 'react-router-dom'
