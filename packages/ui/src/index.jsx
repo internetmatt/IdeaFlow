@@ -4,6 +4,7 @@ import { store } from '@/store'
 import { createRoot } from 'react-dom/client'
 
 // style + assets
+import '@/themes/internetmatt-tokens.css'
 import '@/assets/scss/style.scss'
 
 // third party
