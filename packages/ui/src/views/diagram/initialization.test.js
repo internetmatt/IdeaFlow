@@ -134,7 +134,9 @@ describe.each([
 
         expect(screen.getByLabelText(label)).toBeEnabled()
         expect(screen.getByLabelText(label)).toHaveValue('Second name')
-        fireEvent.blur(screen.getByLabelText(label))
+        await act(async () => {
+            fireEvent.blur(screen.getByLabelText(label))
+        })
         expect(chatflowsApi.updateChatflow).toHaveBeenCalledWith('second', { name: 'Second name', type, flowData })
     })
 
